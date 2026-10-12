@@ -66,13 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Sign Up';
+$layout = 'public';
 require_once __DIR__ . '/../includes/header.php';
 ?>
-<main class="container auth-container">
-    <section class="card form-card">
+<section class="sc-page-narrow">
+    <section class="sc-card">
         <h1>Create an account</h1>
-        <?php if ($errors): ?><div class="alert error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= e($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
-        <form method="post" action="signup.php">
+        <?php if ($errors): ?><div class="sc-alert sc-alert--error" role="alert"><ul><?php foreach ($errors as $error): ?><li><?= e($error) ?></li><?php endforeach; ?></ul></div><?php endif; ?>
+        <form class="sc-form" method="post" action="signup.php">
             <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
             <label for="username">Username</label>
             <input id="username" name="username" type="text" value="<?= e($username) ?>" required>
@@ -82,9 +83,9 @@ require_once __DIR__ . '/../includes/header.php';
             <input id="password" name="password" type="password" required>
             <label for="confirm_password">Confirm Password</label>
             <input id="confirm_password" name="confirm_password" type="password" required>
-            <button type="submit">Sign Up</button>
+            <button class="sc-btn sc-btn--primary" type="submit">Sign up</button>
         </form>
         <p>Already have an account? <a href="login.php">Log in</a></p>
     </section>
-</main>
+</section>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

@@ -31,22 +31,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $pageTitle = 'Log In';
+$layout = 'public';
 require_once __DIR__ . '/../includes/header.php';
 ?>
-<main class="container auth-container">
-    <section class="card form-card">
+<section class="sc-page-narrow">
+    <section class="sc-card">
         <h1>Log in</h1>
-        <?php if ($registered): ?><div class="alert success" role="status">Account created. You can now log in.</div><?php endif; ?>
-        <?php if ($error): ?><div class="alert error" role="alert"><?= e($error) ?></div><?php endif; ?>
-        <form method="post" action="login.php">
+        <?php if ($registered): ?><div class="sc-alert sc-alert--success" role="status">Account created. You can now log in.</div><?php endif; ?>
+        <?php if ($error): ?><div class="sc-alert sc-alert--error" role="alert"><?= e($error) ?></div><?php endif; ?>
+        <form class="sc-form" method="post" action="login.php">
             <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
             <label for="identifier">Username / Email</label>
             <input id="identifier" name="identifier" type="text" value="<?= e($identifier) ?>" required>
             <label for="password">Password</label>
             <input id="password" name="password" type="password" required>
-            <button type="submit">Login</button>
+            <button class="sc-btn sc-btn--primary" type="submit">Log in</button>
         </form>
         <p>Need an account? <a href="signup.php">Sign up</a></p>
     </section>
-</main>
+</section>
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>
