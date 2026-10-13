@@ -1,0 +1,3 @@
+<?php require_once __DIR__ . '/../includes/demo_helpers.php'; require_login(); $person = $demoUsers[(int) ($_GET['id'] ?? 2)] ?? $demoUsers[2]; demo_page_start('User profile'); ?>
+<section class="sc-page-narrow"><section class="sc-card"><p class="sc-eyebrow">Public profile</p><h1><?= e($person['name']) ?></h1><p>@<?= e($person['username']) ?></p><p><?= e($person['bio']) ?></p><button class="sc-btn sc-btn--primary" type="button">Follow</button></section><h2>Posts</h2><?php foreach ($demoPosts as $post): if ($post['user_id'] === $person['id']) demo_post($post); endforeach; ?><p class="sc-demo-label">Demo data.</p></section>
+<?php demo_page_end(); ?>

@@ -1,0 +1,3 @@
+<?php require_once __DIR__ . '/../includes/demo_helpers.php'; require_login(); demo_page_start('New message'); ?>
+<section class="sc-page-narrow"><p class="sc-eyebrow">Messages</p><h1>New message</h1><section class="sc-card"><form class="sc-form" action="#" method="post"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><label for="recipient">Recipient</label><select id="recipient"><option>Layla Hassan</option><option>Youssef Ali</option></select><label for="new-message">Message</label><textarea id="new-message" rows="4"></textarea><button class="sc-btn sc-btn--primary" type="submit">Send message</button></form></section><p class="sc-demo-label">Demo data · messages are UI-only.</p></section>
+<?php demo_page_end(); ?>

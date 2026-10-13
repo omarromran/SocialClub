@@ -76,13 +76,13 @@ require_once __DIR__ . '/../includes/header.php';
         <form class="sc-form" method="post" action="signup.php">
             <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
             <label for="username">Username</label>
-            <input id="username" name="username" type="text" value="<?= e($username) ?>" required>
+            <input id="username" name="username" type="text" value="<?= e($username) ?>" autocomplete="username" required>
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" value="<?= e($email) ?>" required>
+            <input id="email" name="email" type="email" value="<?= e($email) ?>" autocomplete="email" required>
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" required>
+            <input id="password" name="password" type="password" autocomplete="new-password" required>
             <label for="confirm_password">Confirm Password</label>
-            <input id="confirm_password" name="confirm_password" type="password" required>
+            <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" required>
             <button class="sc-btn sc-btn--primary" type="submit">Sign up</button>
         </form>
         <p>Already have an account? <a href="login.php">Log in</a></p>

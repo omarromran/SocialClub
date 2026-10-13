@@ -303,6 +303,11 @@ Text input, textarea, search field, select, checkbox, radio, toggle, file/media 
 - **Moderation actions:** suspend/delete use `sc-btn--danger` + confirmation dialog.
 - Charts use black, white, greys, and small blue highlights only. Don't introduce new hues.
 
+### Demo-only additions
+- **`sc-switch`**: labelled feature toggle with a visible checkbox control.
+- **`sc-bar-row`**: simple CSS bar chart row using a small blue accent and accessible text values.
+- **`sc-demo-label`**: subtle page-footer label identifying static demonstration data.
+
 ---
 
 ## 9. Accessibility (target: WCAG 2.2 AA)

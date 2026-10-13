@@ -42,9 +42,9 @@ require_once __DIR__ . '/../includes/header.php';
         <form class="sc-form" method="post" action="login.php">
             <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
             <label for="identifier">Username / Email</label>
-            <input id="identifier" name="identifier" type="text" value="<?= e($identifier) ?>" required>
+            <input id="identifier" name="identifier" type="text" value="<?= e($identifier) ?>" autocomplete="username" required>
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" required>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
             <button class="sc-btn sc-btn--primary" type="submit">Log in</button>
         </form>
         <p>Need an account? <a href="signup.php">Sign up</a></p>

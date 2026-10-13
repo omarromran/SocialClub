@@ -26,4 +26,8 @@ After configuring the database, visit `http://localhost/socialclub/config/databa
 
 Completed: Phase 1 setup, shared layout, placeholder page, PDO connection foundation, initial schema, and documentation.
 
-Not implemented: registration, login, profiles, posts, likes, comments, messaging, notifications, administration, and other social features. The next phase should begin with authentication and secure session handling.
+Phases 4–10 now include UI-only demonstration pages backed by static data in `includes/static_data.php`. They do not add tables, backend queries, or production actions. Real media, likes, comments, relationships, messaging, notifications, search, settings, and admin authorization remain future backend work. The real text-post feed and owner-only deletion remain active.
+
+## UI page map
+
+Authenticated demo pages include media examples, post detail, likes, people, requests, user profiles, followers, following, messages, notifications, search, settings, profile editing, reporting, sitemap, and admin demonstration pages under `public/admin/`.
