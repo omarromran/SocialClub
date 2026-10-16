@@ -1,1 +1,0 @@
-<?php require_once __DIR__ . '/../includes/demo_helpers.php'; require_login(); demo_page_start('Page not found'); ?><section class="sc-page-narrow"><div class="sc-card sc-empty"><p class="sc-eyebrow">404</p><h1>Page not found</h1><p>That page is not available in this demo.</p><a class="sc-btn sc-btn--primary" href="home.php">Back home</a></div></section><?php demo_page_end(); ?>

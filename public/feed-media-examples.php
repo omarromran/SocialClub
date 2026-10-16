@@ -1,3 +1,0 @@
-<?php require_once __DIR__ . '/../includes/demo_helpers.php'; require_login(); demo_page_start('Media examples'); ?>
-<section class="sc-feed"><p class="sc-eyebrow">Phase 4 demo</p><h1>Media examples</h1><article class="sc-card sc-post"><h2>Image post</h2><div class="sc-media-placeholder">Image preview</div><p>Static image post example.</p></article><article class="sc-card sc-post"><h2>Video post</h2><div class="sc-media-placeholder">Video preview</div><p>Static video post example.</p></article><article class="sc-card sc-post"><h2>Link post</h2><div class="sc-link-preview"><strong>Example community link</strong><span>example.test</span></div></article><p class="sc-demo-label">Demo data · media support is UI-only.</p></section>
-<?php demo_page_end(); ?>
