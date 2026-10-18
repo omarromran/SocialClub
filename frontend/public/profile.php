@@ -32,7 +32,8 @@ require_once __DIR__ . '/../views/shared/header.php';
             <div class="sc-stat"><strong>0</strong><span>Followers</span></div>
             <div class="sc-stat"><strong>0</strong><span>Following</span></div>
         </div>
-        <a class="sc-btn sc-btn--secondary" href="logout.php">Log out</a>
+        <div class="sc-post__actions"><a class="sc-btn sc-btn--secondary" href="edit-profile.php">Edit profile</a><a class="sc-btn sc-btn--ghost" href="#share-profile">Share profile</a><a class="sc-settings-icon" href="settings.php" aria-label="Open settings" title="Settings">⚙</a></div>
+        <p class="sc-demo-label">Share link or QR code will be available here.</p>
     </section>
     <section class="sc-post-list" aria-labelledby="my-posts-title">
         <h2 id="my-posts-title">My posts</h2>

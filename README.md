@@ -13,8 +13,9 @@ Phase 1 provides a beginner-friendly XAMPP/PHP foundation. It contains a placeho
 1. Copy the project into XAMPP's `htdocs` directory, for example `C:\xampp\htdocs\socialclub`.
 2. Start Apache and MySQL from the XAMPP Control Panel.
 3. Import `database/schema.sql` in phpMyAdmin, or run it in the MySQL console.
-4. Adjust credentials in `backend/config/database.php` if your local MySQL setup differs from the default XAMPP `root` account.
-5. Open `http://localhost/socialclub/frontend/public/`, or configure Apache's document root to `frontend/public`.
+4. Run `database/seed_admin.sql` to create the development admin account (`admin` / `admin123`). If the database already existed before the admin column was added, run `database/migration_admin.sql` first.
+5. Adjust credentials in `backend/config/database.php` if your local MySQL setup differs from the default XAMPP `root` account.
+6. Open `http://localhost/socialclub/frontend/public/`, or configure Apache's document root to `frontend/public`.
 
 For a cleaner local URL, configure an Apache virtual host whose document root is the project's `frontend/public` directory. Keep `backend/` and `database/` outside the public document root.
 

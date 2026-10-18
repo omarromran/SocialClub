@@ -33,6 +33,15 @@ function require_login(): void
     }
 }
 
+function require_admin(): void
+{
+    require_login();
+    if (empty($_SESSION['is_admin'])) {
+        http_response_code(403);
+        exit('Access denied.');
+    }
+}
+
 function e(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');

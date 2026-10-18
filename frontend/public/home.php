@@ -46,6 +46,8 @@ require_once __DIR__ . '/../views/shared/header.php';
 ?>
 <section class="sc-feed">
     <div class="sc-page-heading"><p class="sc-eyebrow">Your feed</p><h1>Home</h1></div>
+    <form class="sc-search-bar" method="get" action="search.php" role="search"><input id="home-search" name="q" type="search" aria-label="Search people and posts" placeholder="Search people and posts"><button class="sc-btn sc-btn--secondary" type="submit">Search</button></form>
+    <div class="sc-tabs" aria-label="Feed type"><a href="#following">Following</a><a href="#trending">Trending</a></div>
     <?php if ($success || isset($_GET['deleted'])): ?><div class="sc-alert sc-alert--success" role="status"><?= $success ? 'Post published.' : 'Post deleted.' ?></div><?php endif; ?>
     <?php if ($error): ?><div class="sc-alert sc-alert--error" role="alert"><?= e($error) ?></div><?php endif; ?>
     <section class="sc-card sc-composer" aria-labelledby="composer-title">

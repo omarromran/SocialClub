@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($identifier === '' || $password === '') {
         $error = 'Username/email and password are required.';
     } else {
-        $query = $pdo->prepare('SELECT id, password_hash FROM users WHERE username = :username OR email = :email LIMIT 1');
+        $query = $pdo->prepare('SELECT id, password_hash, is_admin FROM users WHERE username = :username OR email = :email LIMIT 1');
         $query->execute(['username' => $identifier, 'email' => $identifier]);
         $user = $query->fetch();
         if (!$user || !password_verify($password, $user['password_hash'])) {
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             session_regenerate_id(true);
             $_SESSION['user_id'] = (int) $user['id'];
+            $_SESSION['is_admin'] = (int) $user['is_admin'];
             header('Location: profile.php');
             exit;
         }
