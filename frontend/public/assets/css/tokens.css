@@ -25,3 +25,12 @@
   --color-success: #FFFFFF; --color-success-soft: #222222; --color-focus-ring: #60A5FA;
   --shadow-popover: 0 4px 16px rgba(0,0,0,.45); --shadow-dialog: 0 12px 32px rgba(0,0,0,.55);
 }
+
+:root[data-theme="ocean"] {
+  --color-bg: #0B1D2A; --color-surface: #11293A; --color-surface-muted: #183548; --color-surface-raised: #183548;
+  --color-text: #E6F1F7; --color-text-secondary: #A9C3D1; --color-border: #2A4B61;
+  --color-primary: #38BDF8; --color-primary-hover: #7DD3FC; --color-primary-brand: #38BDF8; --color-on-primary: #06202E;
+  --color-primary-soft: #0F3A52; --color-link: #7DD3FC; --color-error: #E6F1F7; --color-error-soft: #183548;
+  --color-success: #E6F1F7; --color-success-soft: #183548; --color-focus-ring: #7DD3FC;
+  --shadow-popover: 0 4px 16px rgba(0,0,0,.45); --shadow-dialog: 0 12px 32px rgba(0,0,0,.55);
+}
