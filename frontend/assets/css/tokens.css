@@ -1,0 +1,61 @@
+:root {
+  --bg: #FFFFFF;
+  --bg-elevated: #FFFFFF;
+  --bg-subtle: #F7F7F8;
+  --bg-hover: rgba(0, 0, 0, 0.03);
+  --bg-active: rgba(0, 0, 0, 0.06);
+  --text: #0F1419;
+  --text-secondary: #5B6670;
+  --text-tertiary: #8A949E;
+  --text-on-accent: #FFFFFF;
+  --text-inverse: #FFFFFF;
+  --border: #EAECEF;
+  --border-strong: #CFD4D9;
+  --accent: #1D9BF0;
+  --accent-hover: #1A8CD8;
+  --accent-subtle: rgba(29, 155, 240, 0.10);
+  --focus-ring: rgba(29, 155, 240, 0.45);
+  --btn-primary-bg: #0F1419;
+  --btn-primary-text: #FFFFFF;
+  --danger: #F4212E;
+  --danger-subtle: rgba(244, 33, 46, 0.10);
+  --account-bg: #000000;
+  --account-text: #FFFFFF;
+  --account-text-secondary: #CFD4D9;
+  --account-border: #3E4348;
+  --account-btn-bg: #FFFFFF;
+  --account-btn-text: #000000;
+  --font-sans: "Inter", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+  --leading-tight: 1.25;
+  --leading-normal: 1.4;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px;
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-pill: 9999px;
+  --border-width: 1px;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 100ms; --dur-base: 200ms;
+}
+
+[data-theme="dark"] {
+  --bg: #000000; --bg-elevated: #16181C; --bg-subtle: #16181C;
+  --bg-hover: rgba(255, 255, 255, 0.04); --bg-active: rgba(255, 255, 255, 0.08);
+  --text: #E7E9EA; --text-secondary: #71767B; --text-tertiary: #536471;
+  --text-inverse: #0F1419; --border: #2F3336; --border-strong: #3E4348;
+  --accent-hover: #4AB3F4; --accent-subtle: rgba(29, 155, 240, 0.15);
+  --focus-ring: rgba(29, 155, 240, 0.55); --btn-primary-bg: #EFF3F4; --btn-primary-text: #0F1419;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #000000; --bg-elevated: #16181C; --bg-subtle: #16181C; --text: #E7E9EA; --text-secondary: #71767B; --text-tertiary: #536471; --border: #2F3336; --border-strong: #3E4348; --btn-primary-bg: #EFF3F4; --btn-primary-text: #0F1419; }
+}
