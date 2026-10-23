@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>const theme = localStorage.getItem('socialclub-theme'); if (theme) document.documentElement.dataset.theme = theme;</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/tokens.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <title>Edit profile · The Social Club</title>
+</head>
+<body>
+    <div class="app-shell">
+        <!-- SHARED_NAV -->
+        <main class="app-main">
+            <div class="app-main__content">
+                <section class="page-panel">
+                    <h1 class="page-panel__title">Edit profile</h1>
+                    <form class="page-form" id="profile-form" enctype="multipart/form-data">
+                        <label class="field">Profile picture<input id="profile-picture" name="profilePicture" type="file" accept="image/jpeg,image/png,image/webp"></label>
+                        <img class="profile-picture-preview" id="profile-picture-preview" alt="" hidden>
+                        <button class="btn btn--outline profile-picture-remove" id="remove-profile-picture" type="button" hidden>Remove profile picture</button>
+                        <label class="field">Bio<textarea id="bio" name="bio" maxlength="160" rows="5" placeholder="Tell people about yourself"></textarea></label>
+                        <p class="message" role="alert"></p>
+                        <button class="btn" type="submit">Save profile</button>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="theme.js"></script>
+    <script src="edit-profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.auth-shell { display: grid; min-height: 100vh; place-items: center; padding: var(--space-6); }
+.auth-card { width: min(100%, 400px); padding: var(--space-8); background: var(--bg); border: var(--border-width) solid var(--border); }
+.wordmark { display: block; margin-bottom: var(--space-8); color: var(--text); font-family: var(--font-display); font-size: var(--text-lg); font-weight: var(--weight-bold); text-decoration: none; }
+.theme-toggle { min-width: 44px; min-height: 44px; border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-pill); background: var(--bg); color: var(--text); cursor: pointer; }
+.auth-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.auth-form { display: grid; gap: var(--space-4); margin-top: var(--space-8); }
+.field { display: grid; gap: var(--space-2); color: var(--text-secondary); font-size: var(--text-sm); font-weight: var(--weight-medium); }
+.field input, .field textarea { width: 100%; min-height: 48px; padding: var(--space-3); border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font-size: var(--text-md); }
+.field textarea { min-height: 120px; resize: vertical; }
+.field input:focus, .field textarea:focus { border-color: var(--accent); }
+.btn { display: inline-flex; width: 100%; min-height: 44px; align-items: center; justify-content: center; border: 0; border-radius: var(--radius-pill); background: var(--btn-primary-bg); color: var(--btn-primary-text); cursor: pointer; font-size: var(--text-base); font-weight: var(--weight-bold); transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+.btn:hover { opacity: .9; }
+.btn:active { transform: scale(.98); }
+.btn:disabled { cursor: not-allowed; opacity: .5; }
+.helper { margin: var(--space-6) 0 0; color: var(--text-secondary); text-align: center; }
+.message, .validation { min-height: var(--space-4); margin: 0; color: var(--danger); font-size: var(--text-sm); }
+.message--success { color: var(--accent); }
+.account-shell { display: grid; min-height: 100vh; place-items: center; padding: var(--space-6); background: var(--account-bg); color: var(--text-inverse); }
+.account-panel { width: min(100%, 600px); padding: var(--space-8); border: var(--border-width) solid var(--border); }
+.account-panel h1 { color: var(--account-text); }
+.account-panel p { margin-block: var(--space-8); color: var(--account-text-secondary); }
+.account-panel .theme-toggle { border-color: var(--account-border); background: var(--account-bg); color: var(--account-text); }
+.account-panel .btn { background: var(--account-btn-bg); color: var(--account-btn-text); }
+@media (max-width: 700px) { .auth-shell, .account-shell { padding: var(--space-4); } .auth-card, .account-panel { padding: var(--space-6); } }
