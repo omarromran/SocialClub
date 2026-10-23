@@ -1,12 +1,18 @@
 (function () {
+  var themes = ['light', 'dark', 'ocean'];
   var root = document.documentElement;
   var stored = localStorage.getItem('sc-theme');
-  if (stored === 'light' || stored === 'dark') root.dataset.theme = stored;
+  if (themes.indexOf(stored) !== -1) root.dataset.theme = stored;
   window.addEventListener('DOMContentLoaded', function () {
     var toggle = document.querySelector('[data-theme-toggle]');
     if (!toggle) return;
-    var updateLabel = function () { toggle.setAttribute('aria-label', root.dataset.theme === 'dark' ? 'Use light theme' : 'Use dark theme'); };
+    var next = function () { return themes[(themes.indexOf(root.dataset.theme || 'light') + 1) % themes.length]; };
+    var updateLabel = function () { toggle.setAttribute('aria-label', 'Switch to ' + next() + ' theme'); };
     updateLabel();
-    toggle.addEventListener('click', function () { root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('sc-theme', root.dataset.theme); updateLabel(); });
+    toggle.addEventListener('click', function () {
+      root.dataset.theme = next();
+      localStorage.setItem('sc-theme', root.dataset.theme);
+      updateLabel();
+    });
   });
 }());

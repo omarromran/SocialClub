@@ -11,7 +11,7 @@ $assetPrefix = str_contains((string) ($_SERVER['SCRIPT_NAME'] ?? ''), '/admin/')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
-    <script>try{var t=localStorage.getItem('sc-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
+    <script>try{var t=localStorage.getItem('sc-theme');if(['light','dark','ocean'].indexOf(t)!==-1)document.documentElement.dataset.theme=t;}catch(e){}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
