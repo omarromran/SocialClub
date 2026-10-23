@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             BigInt    @id @default(autoincrement())
+  displayName    String    @map("display_name") @db.VarChar(80)
+  username       String    @unique @db.VarChar(50)
+  email          String    @unique @db.VarChar(255)
+  passwordHash   String    @map("password_hash")
+  bio            String?
+  profilePhotoUrl String?  @map("profile_photo_url")
+  isPrivate      Boolean   @default(false) @map("is_private")
+  isAdmin        Boolean   @default(false) @map("isAdmin")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  admin          Admin?
+  posts          Post[]
+  likes          Like[]
+  comments       Comment[]
+  shares         Share[]
+  sessions       Session[]
+  followers      Follow[]  @relation("following")
+  following      Follow[]  @relation("follower")
+
+  @@map("users")
+}
+
+model Admin {
+  id     BigInt @id @default(autoincrement())
+  userId BigInt @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("admins")
+}
+
+model Post {
+  id        BigInt    @id @default(autoincrement())
+  userId    BigInt    @map("user_id")
+  caption   String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes     Like[]
+  comments  Comment[]
+  shares    Share[]
+
+  @@index([userId, createdAt(sort: Desc)], map: "posts_user_created_idx")
+  @@map("posts")
+}
+
+model Like {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  postId    BigInt   @map("post_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([postId], map: "likes_post_idx")
+  @@map("likes")
+}
+
+model Comment {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  postId    BigInt   @map("post_id")
+  content   String
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId, createdAt(sort: Asc)], map: "comments_post_created_idx")
+  @@map("comments")
+}
+
+model Share {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  postId    BigInt   @map("post_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId], map: "shares_post_idx")
+  @@map("shares")
+}
+
+model Follow {
+  id          BigInt   @id @default(autoincrement())
+  followerId  BigInt   @map("follower_id")
+  followingId BigInt   @map("following_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  follower    User     @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followingId], map: "follows_following_idx")
+  @@map("follows")
+}
+
+model Session {
+  id        BigInt    @id @default(autoincrement())
+  userId    BigInt    @map("user_id")
+  tokenId   String    @unique @map("token_id") @db.Uuid
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tokenId, expiresAt], map: "sessions_active_token_idx", type: Brin)
+  @@map("sessions")
+}

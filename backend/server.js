@@ -56,6 +56,7 @@ app.get([...protectedPages], requirePageAuth, (req, res) => {
   const page = fs.readFileSync(path.join(frontendPath, pageFile), 'utf8');
   const activeId = req.path === '/' || req.path === '/index' ? 'for-you' : req.path === '/newPost' ? 'add-post' : ['profile', 'edit-profile'].includes(req.path.slice(1)) ? 'profile' : req.path.slice(1);
   const nav = fs.readFileSync(path.join(frontendPath, 'nav.html'), 'utf8').replace(`data-nav-id="${activeId}"`, `data-nav-id="${activeId}" aria-current="page"`);
+  res.set({ 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', Pragma: 'no-cache', Expires: '0' });
   res.type('html').send(page.replace('<!-- SHARED_NAV -->', nav));
 });
 app.get(['/login', '/signup'], (req, res) => {
