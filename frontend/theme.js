@@ -1,11 +1,25 @@
+const themes = ['light', 'dark', 'ocean'];
 const savedTheme = localStorage.getItem('socialclub-theme');
-if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+const initialTheme = themes.includes(savedTheme) ? savedTheme : 'light';
+document.documentElement.dataset.theme = initialTheme;
+
+const updateThemeButtons = (theme) => {
+  const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+  document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+    button.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
+    button.setAttribute('title', `Switch to ${nextTheme} theme`);
+  });
+};
+
+updateThemeButtons(initialTheme);
 
 document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
   button.addEventListener('click', () => {
-    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    const currentTheme = document.documentElement.dataset.theme;
+    const nextTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
     document.documentElement.dataset.theme = nextTheme;
     localStorage.setItem('socialclub-theme', nextTheme);
+    updateThemeButtons(nextTheme);
   });
 });
 
