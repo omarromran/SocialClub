@@ -11,6 +11,7 @@ function publicUser(user) {
     email: user.email,
     bio: user.bio,
     profile_photo_url: user.profilePhotoUrl,
+    is_private: user.isPrivate,
     created_at: user.createdAt,
   };
 }

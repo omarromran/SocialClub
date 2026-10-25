@@ -77,6 +77,13 @@ CREATE TABLE IF NOT EXISTS sessions (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS feedback (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  message VARCHAR(2000) NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- updated_at is maintained by the database whenever a user changes.
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER AS $$
@@ -112,3 +119,6 @@ CREATE INDEX IF NOT EXISTS follows_following_idx
 CREATE INDEX IF NOT EXISTS sessions_active_token_idx
   ON sessions (token_id, expires_at)
   WHERE revoked_at IS NULL;
+
+CREATE INDEX IF NOT EXISTS feedback_user_created_idx
+  ON feedback (user_id, created_at DESC);

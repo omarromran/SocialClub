@@ -26,6 +26,7 @@ model User {
   comments       Comment[]
   shares         Share[]
   sessions       Session[]
+  feedback       Feedback[]
   followers      Follow[]  @relation("following")
   following      Follow[]  @relation("follower")
 
@@ -116,4 +117,15 @@ model Session {
 
   @@index([tokenId, expiresAt], map: "sessions_active_token_idx", type: Brin)
   @@map("sessions")
+}
+
+model Feedback {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt   @map("user_id")
+  message   String   @db.VarChar(2000)
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt(sort: Desc)], map: "feedback_user_created_idx")
+  @@map("feedback")
 }

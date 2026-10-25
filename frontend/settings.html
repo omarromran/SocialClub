@@ -18,13 +18,77 @@
         <!-- SHARED_NAV -->
         <main class="app-main">
             <div class="app-main__content">
-                <section class="page-panel">
-                    <h1 class="page-panel__title">Settings</h1>
-                    <p class="page-panel__text">Account settings will be added here.</p>
+                <section class="settings-panel" aria-labelledby="settings-title">
+                    <header class="settings-header">
+                        <h1 class="page-panel__title" id="settings-title">Settings</h1>
+                        <p class="settings-intro">Manage your privacy, security, and how The Social Club looks.</p>
+                    </header>
+
+                    <section class="settings-section" aria-labelledby="privacy-title">
+                        <div>
+                            <h2 id="privacy-title">Privacy and security</h2>
+                            <p class="settings-help">Choose who can see your account and update your password.</p>
+                        </div>
+                        <label class="settings-switch-row" for="private-account">
+                            <span><strong>Private account</strong><span class="settings-help">Only people you approve can follow you and see your posts.</span></span>
+                            <input class="settings-switch" id="private-account" type="checkbox" aria-describedby="privacy-status">
+                        </label>
+                        <p class="settings-status" id="privacy-status" role="status" aria-live="polite"></p>
+
+                        <form class="settings-form" id="password-form">
+                            <h3>Change password</h3>
+                            <label class="field">Current password<input name="currentPassword" type="password" autocomplete="current-password" required></label>
+                            <label class="field">New password<input name="newPassword" type="password" autocomplete="new-password" minlength="8" required></label>
+                            <label class="field">Confirm new password<input name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></label>
+                            <button class="btn settings-action" type="submit">Update password</button>
+                            <p class="settings-status" id="password-status" role="status" aria-live="polite"></p>
+                        </form>
+                    </section>
+
+                    <section class="settings-section" aria-labelledby="appearance-title">
+                        <div>
+                            <h2 id="appearance-title">Appearance</h2>
+                            <p class="settings-help">Choose a theme for the whole website.</p>
+                        </div>
+                        <label class="field settings-theme-field" for="theme-select">Theme
+                            <select class="settings-theme-select" id="theme-select" name="theme">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="ocean">Ocean</option>
+                            </select>
+                        </label>
+                    </section>
+
+                    <section class="settings-section" aria-labelledby="feedback-title">
+                        <div>
+                            <h2 id="feedback-title">Help and feedback</h2>
+                            <p class="settings-help">We hear you. Tell us what’s working or what we could improve.</p>
+                        </div>
+                        <form class="settings-form" id="feedback-form">
+                            <label class="field" for="feedback-message">We hear you<textarea id="feedback-message" name="message" maxlength="2000" rows="5" placeholder="Share your thoughts with us…" required></textarea></label>
+                            <button class="btn settings-action" type="submit">Send feedback</button>
+                            <p class="settings-status" id="feedback-status" role="status" aria-live="polite"></p>
+                        </form>
+                    </section>
+
+                    <section class="settings-section settings-account-actions" aria-labelledby="account-actions-title">
+                        <div>
+                            <h2 id="account-actions-title">Account</h2>
+                            <p class="settings-help">Sign out or permanently remove your account and its associated data.</p>
+                        </div>
+                        <button class="btn settings-action" id="logout-button" type="button">Log out</button>
+                        <p class="settings-status" id="logout-status" role="status" aria-live="polite"></p>
+                        <form class="settings-form settings-delete-form" id="delete-account-form">
+                            <label class="field" for="delete-password">Confirm your password to delete your account<input id="delete-password" name="password" type="password" autocomplete="current-password" required></label>
+                            <button class="btn settings-action btn--danger" type="submit">Delete account</button>
+                            <p class="settings-status" id="delete-status" role="status" aria-live="polite"></p>
+                        </form>
+                    </section>
                 </section>
             </div>
         </main>
     </div>
     <script src="theme.js"></script>
+    <script src="settings.js"></script>
 </body>
 </html>

@@ -5,6 +5,8 @@ document.documentElement.dataset.theme = initialTheme;
 
 const updateThemeButtons = (theme) => {
   const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
+  const themeSelect = document.querySelector('#theme-select');
+  if (themeSelect) themeSelect.value = theme;
   document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
     button.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
     button.setAttribute('title', `Switch to ${nextTheme} theme`);
@@ -12,6 +14,14 @@ const updateThemeButtons = (theme) => {
 };
 
 updateThemeButtons(initialTheme);
+
+document.querySelector('#theme-select')?.addEventListener('change', (event) => {
+  const selectedTheme = event.currentTarget.value;
+  if (!themes.includes(selectedTheme)) return;
+  document.documentElement.dataset.theme = selectedTheme;
+  localStorage.setItem('socialclub-theme', selectedTheme);
+  updateThemeButtons(selectedTheme);
+});
 
 document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
   button.addEventListener('click', () => {

@@ -11,6 +11,7 @@
 .field input:focus, .field textarea:focus { border-color: var(--accent); }
 .btn { display: inline-flex; width: 100%; min-height: 44px; align-items: center; justify-content: center; border: 0; border-radius: var(--radius-pill); background: var(--btn-primary-bg); color: var(--btn-primary-text); cursor: pointer; font-size: var(--text-base); font-weight: var(--weight-bold); transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
 .btn:hover { opacity: .9; }
+.btn--danger { background: var(--danger); color: var(--text-on-accent); }
 .btn:active { transform: scale(.98); }
 .btn:disabled { cursor: not-allowed; opacity: .5; }
 .helper { margin: var(--space-6) 0 0; color: var(--text-secondary); text-align: center; }
@@ -22,5 +23,27 @@
 .account-panel p { margin-block: var(--space-8); color: var(--account-text-secondary); }
 .account-panel .theme-toggle { border-color: var(--account-border); background: var(--account-bg); color: var(--account-text); }
 .account-panel .btn { background: var(--account-btn-bg); color: var(--account-btn-text); }
+.settings-header { display: grid; gap: var(--space-3); }
+.settings-header .settings-intro { margin: 0; color: var(--account-text-secondary); }
+.settings-section > div > h2, .settings-form h3 { margin: 0 0 var(--space-2); font-family: var(--font-display); font-size: var(--text-lg); }
+.settings-help { margin: 0; color: var(--account-text-secondary); font-size: var(--text-sm); }
+.settings-section > div > .settings-help { margin: 0; }
+.settings-switch-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-4); border: var(--border-width) solid var(--account-border); border-radius: var(--radius-md); cursor: pointer; }
+.settings-switch-row strong, .settings-switch-row .settings-help { display: block; }
+.settings-switch-row .settings-help { margin-block-start: var(--space-1); }
+.settings-switch { position: relative; width: 48px; height: 28px; flex: 0 0 48px; appearance: none; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: var(--bg-subtle); cursor: pointer; transition: background var(--dur-fast) var(--ease); }
+.settings-switch::before { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--bg); content: ""; transition: transform var(--dur-fast) var(--ease); }
+.settings-switch:checked { border-color: var(--accent); background: var(--accent); }
+.settings-switch:checked::before { transform: translateX(20px); }
+.settings-form { display: grid; gap: var(--space-4); }
+.settings-form .field { color: var(--account-text-secondary); }
+.settings-form .field input, .settings-form .field textarea, .settings-theme-select { border-radius: var(--radius-sm); }
+.settings-theme-field { max-width: 320px; }
+.settings-theme-select { width: 100%; min-height: 48px; padding: var(--space-3); border: var(--border-width) solid var(--border-strong); background: var(--bg); color: var(--text); font: inherit; }
+.settings-action { width: auto; justify-self: start; padding-inline: var(--space-6); }
+.settings-status { min-height: var(--space-4); margin: 0; color: var(--account-text-secondary); font-size: var(--text-sm); }
+.settings-status[data-state="error"] { color: var(--danger); }
+.settings-status[data-state="success"] { color: var(--accent); }
+.settings-delete-form { max-width: 420px; padding-block-start: var(--space-4); border-block-start: var(--border-width) solid var(--account-border); }
 @media (max-width: 700px) { .auth-shell, .account-shell { padding: var(--space-4); } .auth-card, .account-panel { padding: var(--space-6); } }
 @media (max-width: 700px) { .app-theme-toggle { grid-column: auto; justify-self: stretch; width: 100%; min-width: 0; margin: 0; } }
