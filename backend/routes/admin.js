@@ -1,6 +1,7 @@
 const express = require('express');
 const controller = require('../controllers/adminController');
 const { requireAuth, requireAdmin } = require('../middleware/auth');
+const { validateSystemPost } = require('../middleware/validation');
 
 const router = express.Router();
 router.use(requireAuth, requireAdmin);
@@ -15,7 +16,7 @@ router.get('/posts', controller.listPosts);
 router.delete('/posts/:id', controller.deletePost);
 router.get('/comments', controller.listComments);
 router.delete('/comments/:id', controller.deleteComment);
-router.post('/system-post', controller.createSystemPost);
+router.post('/system-post', validateSystemPost, controller.createSystemPost);
 
 router.get('/features', controller.listFeatures);
 router.patch('/features/:id', controller.updateFeature);

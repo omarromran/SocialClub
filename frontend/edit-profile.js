@@ -54,6 +54,9 @@ removePictureButton.addEventListener('click', async () => {
 profileForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   setMessage('');
+  const values = Object.fromEntries(new FormData(profileForm));
+  const validationError = SocialClubValidation.profile(values);
+  if (validationError) { setMessage(validationError); return; }
   submitButton.disabled = true;
   submitButton.textContent = 'Saving...';
   try {

@@ -15,6 +15,10 @@ function notify(message, error = false) {
   window.setTimeout(() => { flash.hidden = true; }, 4000);
 }
 
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>\'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+}
+
 function formatDate(value) {
   return value ? new Date(value).toLocaleDateString() : '—';
 }
@@ -23,7 +27,7 @@ async function loadUsers() {
   const query = document.querySelector('#user-search').value.trim();
   const { users } = await api(`/users${query ? `?q=${encodeURIComponent(query)}` : ''}`);
   document.querySelector('#user-rows').innerHTML = users.map((user) => `
-    <tr><td><strong>${user.display_name}</strong><br><small>@${user.username}</small></td>
+    <tr><td><strong>${escapeHtml(user.display_name)}</strong><br><small>@${escapeHtml(user.username)}</small></td>
     <td>${user.is_admin ? 'Admin' : user.is_suspended ? 'Suspended' : 'Active'}</td>
     <td>${user.active_sessions}</td><td>${formatDate(user.password_changed_at)}</td>
     <td><button class="chip" data-user-action="suspend" data-id="${user.id}" data-suspended="${!user.is_suspended}">${user.is_suspended ? 'Restore' : 'Suspend'}</button>
@@ -32,8 +36,8 @@ async function loadUsers() {
 
 async function loadContent() {
   const [{ posts }, { comments }] = await Promise.all([api('/posts'), api('/comments')]);
-  document.querySelector('#post-list').innerHTML = posts.map((post) => `<li><strong>@${post.username}</strong> ${post.caption || '(no caption)'} <button class="chip" data-delete="/posts/${post.id}">Remove</button></li>`).join('');
-  document.querySelector('#comment-list').innerHTML = comments.map((comment) => `<li><strong>@${comment.username}</strong> ${comment.content} <button class="chip" data-delete="/comments/${comment.id}">Remove</button></li>`).join('');
+  document.querySelector('#post-list').innerHTML = posts.map((post) => `<li><strong>@${escapeHtml(post.username)}</strong> ${escapeHtml(post.caption || '(no caption)')} <button class="chip" data-delete="/posts/${post.id}">Remove</button></li>`).join('');
+  document.querySelector('#comment-list').innerHTML = comments.map((comment) => `<li><strong>@${escapeHtml(comment.username)}</strong> ${escapeHtml(comment.content)} <button class="chip" data-delete="/comments/${comment.id}">Remove</button></li>`).join('');
 }
 
 async function loadFeatures() {
@@ -44,7 +48,7 @@ async function loadFeatures() {
 async function loadTrends() {
   const { totals, popular } = await api('/trends');
   document.querySelector('#stat-row').innerHTML = Object.entries(totals).map(([name, value]) => `<div class="stat"><strong>${value}</strong><span>${name}</span></div>`).join('');
-  document.querySelector('#popular-list').innerHTML = popular.map((post) => `<li><strong>@${post.username}</strong> ${post.caption} <span>${post.score} engagement</span></li>`).join('');
+  document.querySelector('#popular-list').innerHTML = popular.map((post) => `<li><strong>@${escapeHtml(post.username)}</strong> ${escapeHtml(post.caption)} <span>${post.score} engagement</span></li>`).join('');
 }
 
 async function loadPanel(panel) {
@@ -81,6 +85,6 @@ document.addEventListener('click', async (event) => {
   } catch (error) { notify(error.message, true); }
 });
 
-document.querySelector('#notice-form').addEventListener('submit', async (event) => { event.preventDefault(); try { const form = new FormData(event.currentTarget); const response = await fetch('/api/admin/system-post', { method: 'POST', body: JSON.stringify({ caption: form.get('caption') }), headers: { 'Content-Type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error); notify(data.message); event.currentTarget.reset(); } catch (error) { notify(error.message, true); } });
+document.querySelector('#notice-form').addEventListener('submit', async (event) => { event.preventDefault(); try { const form = new FormData(event.currentTarget); const values = { caption: form.get('caption') }; const validationError = SocialClubValidation.systemPost(values); if (validationError) throw new Error(validationError); const response = await fetch('/api/admin/system-post', { method: 'POST', body: JSON.stringify(values), headers: { 'Content-Type': 'application/json' } }); const data = await response.json(); if (!response.ok) throw new Error(data.error); notify(data.message); event.currentTarget.reset(); } catch (error) { notify(error.message, true); } });
 
 loadUsers().catch((error) => notify(error.message, true));

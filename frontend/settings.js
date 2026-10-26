@@ -54,6 +54,8 @@ document.querySelector('#password-form').addEventListener('submit', async (event
   const submit = form.querySelector('[type="submit"]');
   const status = document.querySelector('#password-status');
   const values = Object.fromEntries(new FormData(form));
+  const validationError = SocialClubValidation.passwordChange(values);
+  if (validationError) { showStatus(status, validationError, 'error'); return; }
   submit.disabled = true;
   showStatus(status, 'Updating password…');
   try {
@@ -73,6 +75,8 @@ document.querySelector('#feedback-form').addEventListener('submit', async (event
   const submit = form.querySelector('[type="submit"]');
   const status = document.querySelector('#feedback-status');
   const message = new FormData(form).get('message');
+  const validationError = SocialClubValidation.feedback({ message });
+  if (validationError) { showStatus(status, validationError, 'error'); return; }
   submit.disabled = true;
   showStatus(status, 'Sending…');
   try {
@@ -105,6 +109,8 @@ document.querySelector('#delete-account-form').addEventListener('submit', async 
   const submit = form.querySelector('[type="submit"]');
   const status = document.querySelector('#delete-status');
   const password = new FormData(form).get('password');
+  const validationError = SocialClubValidation.deleteAccount({ password });
+  if (validationError) { showStatus(status, validationError, 'error'); return; }
   submit.disabled = true;
   showStatus(status, 'Deleting account…');
   try {
