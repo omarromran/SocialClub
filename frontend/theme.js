@@ -1,4 +1,4 @@
-const themes = ['light', 'dark', 'ocean', 'forest-crimson', 'lemon-charcoal', 'mocha-gold', 'ice-aubergine', 'platinum-mocha', 'oatmeal-pine'];
+const themes = ['sleek-dark', 'tech-saas', 'ocean', 'mocha-gold', 'forest-crimson'];
 const savedTheme = localStorage.getItem('socialclub-theme');
 const initialTheme = themes.includes(savedTheme) ? savedTheme : 'light';
 

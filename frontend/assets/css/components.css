@@ -1,5 +1,9 @@
 .auth-shell { display: grid; min-height: 100vh; place-items: center; padding: var(--space-6); }
 .auth-card { width: min(100%, 420px); padding: var(--space-8); background: var(--bg-elevated); border: var(--border-width) solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.auth-card h1, .auth-card .wordmark { color: var(--on-surface); }
+.auth-card .field { color: var(--text-secondary); }
+.auth-card .field input, .auth-card .field textarea { color: var(--on-surface); }
+.auth-card .helper { color: var(--text-secondary); }
 .wordmark { display: block; margin-bottom: var(--space-8); color: var(--text); font-family: var(--font-display); font-size: var(--text-lg); font-weight: var(--weight-bold); text-decoration: none; }
 .theme-toggle { min-width: 44px; min-height: 44px; border: var(--border-width) solid var(--border-strong); border-radius: var(--radius-pill); background: var(--bg); color: var(--text); cursor: pointer; }
 .app-theme-toggle { grid-column: 1 / -1; justify-self: start; margin: 0; }
@@ -72,15 +76,11 @@
 .theme-swatch::after { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 50%; color: var(--on-cta); content: "✓"; font-size: 25px; font-weight: var(--weight-bold); opacity: 0; transform: scale(.7); transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
 .theme-option[aria-checked="true"] .theme-swatch { box-shadow: 0 0 0 3px var(--cta), 0 0 0 6px var(--bg), var(--shadow-sm); }
 .theme-option[aria-checked="true"] .theme-swatch::after { opacity: 1; transform: scale(1); }
-.theme-swatch--light { background: conic-gradient(var(--swatch-light-cta) 0 10%, var(--swatch-light-surface) 10% 40%, var(--swatch-light-bg) 40% 100%); }
-.theme-swatch--dark { background: conic-gradient(var(--swatch-dark-cta) 0 10%, var(--swatch-dark-surface) 10% 40%, var(--swatch-dark-bg) 40% 100%); }
 .theme-swatch--ocean { background: conic-gradient(var(--swatch-ocean-cta) 0 10%, var(--swatch-ocean-surface) 10% 40%, var(--swatch-ocean-bg) 40% 100%); }
 .theme-swatch--forest-crimson { background: conic-gradient(var(--swatch-forest-cta) 0 10%, var(--swatch-forest-surface) 10% 40%, var(--swatch-forest-bg) 40% 100%); }
-.theme-swatch--lemon-charcoal { background: conic-gradient(var(--swatch-lemon-cta) 0 10%, var(--swatch-lemon-surface) 10% 40%, var(--swatch-lemon-bg) 40% 100%); }
 .theme-swatch--mocha-gold { background: conic-gradient(var(--swatch-mocha-cta) 0 10%, var(--swatch-mocha-surface) 10% 40%, var(--swatch-mocha-bg) 40% 100%); }
-.theme-swatch--ice-aubergine { background: conic-gradient(var(--swatch-ice-cta) 0 10%, var(--swatch-ice-surface) 10% 40%, var(--swatch-ice-bg) 40% 100%); }
-.theme-swatch--platinum-mocha { background: conic-gradient(var(--swatch-platinum-cta) 0 10%, var(--swatch-platinum-surface) 10% 40%, var(--swatch-platinum-bg) 40% 100%); }
-.theme-swatch--oatmeal-pine { background: conic-gradient(var(--swatch-oatmeal-cta) 0 10%, var(--swatch-oatmeal-surface) 10% 40%, var(--swatch-oatmeal-bg) 40% 100%); }
+.theme-swatch--tech-saas { background: conic-gradient(var(--swatch-tech-cta) 0 10%, var(--swatch-tech-surface) 10% 40%, var(--swatch-tech-bg) 40% 100%); }
+.theme-swatch--sleek-dark { background: conic-gradient(var(--swatch-sleek-cta) 0 10%, var(--swatch-sleek-surface) 10% 40%, var(--swatch-sleek-bg) 40% 100%); }
 .settings-theme-select { width: 100%; min-height: 48px; padding: var(--space-3); border: var(--border-width) solid var(--border-strong); background: var(--bg); color: var(--text); font: inherit; }
 .settings-action { width: auto; justify-self: start; padding-inline: var(--space-6); }
 .settings-status { min-height: var(--space-4); margin: 0; color: var(--muted); font-size: var(--text-sm); }
