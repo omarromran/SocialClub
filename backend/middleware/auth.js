@@ -35,4 +35,22 @@ async function requirePageAuth(req, res, next) {
   }
 }
 
-module.exports = { requireAuth, requirePageAuth };
+function requireAdmin(req, res, next) {
+  prisma.user.findUnique({ where: { id: BigInt(req.user.id) }, select: { isAdmin: true, admin: { select: { id: true } } } })
+    .then((user) => {
+      if (!user || (!user.isAdmin && !user.admin)) return res.status(403).json({ error: 'Admin access is required.' });
+      next();
+    })
+    .catch(next);
+}
+
+function requirePageAdmin(req, res, next) {
+  prisma.user.findUnique({ where: { id: BigInt(req.user.id) }, select: { isAdmin: true, admin: { select: { id: true } } } })
+    .then((user) => {
+      if (!user || (!user.isAdmin && !user.admin)) return res.redirect('/');
+      next();
+    })
+    .catch(next);
+}
+
+module.exports = { requireAuth, requirePageAuth, requireAdmin, requirePageAdmin };

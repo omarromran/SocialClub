@@ -6,7 +6,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
-const { requirePageAuth } = require('./middleware/auth');
+const adminRoutes = require('./routes/admin');
+const { requirePageAuth, requirePageAdmin } = require('./middleware/auth');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { getR2Config } = require('./config/r2');
 
@@ -25,6 +26,7 @@ const pageRoutes = {
   '/settings': 'settings.html',
   '/login': 'login.html',
   '/signup': 'signup.html',
+  '/admin': 'admin.html',
 };
 const protectedPages = new Set(['/', '/index', '/newPost', '/search', '/messages', '/activity', '/profile', '/edit-profile', '/settings']);
 const legacyPageRoutes = {
@@ -50,6 +52,7 @@ app.use(cookieParser());
 app.use(requestLogger);
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/admin', adminRoutes);
 app.get(Object.keys(legacyPageRoutes), (req, res) => res.redirect(301, legacyPageRoutes[req.path]));
 app.get([...protectedPages], requirePageAuth, (req, res) => {
   const pageFile = pageRoutes[req.path];
@@ -58,6 +61,11 @@ app.get([...protectedPages], requirePageAuth, (req, res) => {
   const nav = fs.readFileSync(path.join(frontendPath, 'nav.html'), 'utf8').replace(`data-nav-id="${activeId}"`, `data-nav-id="${activeId}" aria-current="page"`);
   res.set({ 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', Pragma: 'no-cache', Expires: '0' });
   res.type('html').send(page.replace('<!-- SHARED_NAV -->', nav));
+});
+app.get('/admin', requirePageAuth, requirePageAdmin, (req, res) => {
+  const page = fs.readFileSync(path.join(frontendPath, pageRoutes['/admin']), 'utf8');
+  res.set({ 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate', Pragma: 'no-cache', Expires: '0' });
+  res.type('html').send(page);
 });
 app.get(['/login', '/signup'], (req, res) => {
   const page = fs.readFileSync(path.join(frontendPath, pageRoutes[req.path]), 'utf8');
