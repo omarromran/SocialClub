@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>const storedTheme = localStorage.getItem('socialclub-theme'); document.documentElement.dataset.theme = ['light', 'dark', 'ocean'].includes(storedTheme) ? storedTheme : 'light';</script>
+    <script>const storedTheme = localStorage.getItem('socialclub-theme'); document.documentElement.dataset.theme = ['light', 'dark', 'ocean', 'forest-crimson', 'lemon-charcoal', 'mocha-gold', 'ice-aubergine', 'platinum-mocha', 'oatmeal-pine'].includes(storedTheme) ? storedTheme : 'light';</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/tokens.css"><link rel="stylesheet" href="assets/css/base.css"><link rel="stylesheet" href="assets/css/components.css"><link rel="stylesheet" href="assets/css/layout.css">
@@ -12,14 +12,14 @@
   <div class="app-shell">
     <!-- SHARED_NAV -->
     <main class="app-main"><div class="app-main__content">
-      <section class="account-panel" aria-labelledby="page-title">
-        <div class="auth-header">
-          <h1 id="page-title">The Social Club</h1>
-        </div>
-        <div class="account-copy">
-          <p id="welcome" aria-live="polite">Loading account...</p>
-          <button class="btn" id="logout" type="button">Log out</button>
-        </div>
+      <section class="feed" aria-labelledby="page-title">
+        <header class="feed-header">
+          <p class="eyebrow">Your community</p><h1 id="page-title">Home</h1>
+        <a class="icon-button" href="/settings" aria-label="Open settings">⚙</a></header>
+        <nav class="feed-tabs" aria-label="Feed views"><a class="feed-tab is-active" href="/">For you</a><a class="feed-tab" href="/">Following</a></nav>
+        <section class="composer-card" aria-label="Create a post"><div class="composer-avatar" id="composer-avatar" aria-label="Your profile picture">?</div><div><p class="composer-prompt">What’s happening?</p><a class="composer-action" href="/newPost">Start a post <span>→</span></a></div></section>
+        <section class="empty-state feed-empty" aria-live="polite"><strong id="welcome">Welcome to The Social Club</strong><span>Your feed is ready for its first post.</span><a class="btn" href="/newPost">Create your first post</a></section>
+        <button class="btn btn--outline logout-link" id="logout" type="button">Log out</button>
       </section>
     </div>
   </main>

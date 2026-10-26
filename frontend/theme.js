@@ -1,35 +1,33 @@
-const themes = ['light', 'dark', 'ocean'];
+const themes = ['light', 'dark', 'ocean', 'forest-crimson', 'lemon-charcoal', 'mocha-gold', 'ice-aubergine', 'platinum-mocha', 'oatmeal-pine'];
 const savedTheme = localStorage.getItem('socialclub-theme');
 const initialTheme = themes.includes(savedTheme) ? savedTheme : 'light';
-document.documentElement.dataset.theme = initialTheme;
 
-const updateThemeButtons = (theme) => {
-  const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
-  const themeSelect = document.querySelector('#theme-select');
-  if (themeSelect) themeSelect.value = theme;
+const applyTheme = (theme, persist = true) => {
+  if (!themes.includes(theme)) return;
+  document.documentElement.dataset.theme = theme;
+  if (persist) localStorage.setItem('socialclub-theme', theme);
+  document.querySelectorAll('[data-theme-choice]').forEach((choice) => {
+    const selected = choice.dataset.themeChoice === theme;
+    choice.setAttribute('aria-checked', String(selected));
+  });
+  const index = themes.indexOf(theme);
+  const nextTheme = themes[(index + 1) % themes.length];
   document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
     button.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
     button.setAttribute('title', `Switch to ${nextTheme} theme`);
   });
 };
 
-updateThemeButtons(initialTheme);
+applyTheme(initialTheme, false);
 
-document.querySelector('#theme-select')?.addEventListener('change', (event) => {
-  const selectedTheme = event.currentTarget.value;
-  if (!themes.includes(selectedTheme)) return;
-  document.documentElement.dataset.theme = selectedTheme;
-  localStorage.setItem('socialclub-theme', selectedTheme);
-  updateThemeButtons(selectedTheme);
+document.querySelectorAll('[data-theme-choice]').forEach((choice) => {
+  choice.addEventListener('click', () => applyTheme(choice.dataset.themeChoice));
 });
 
 document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
   button.addEventListener('click', () => {
     const currentTheme = document.documentElement.dataset.theme;
-    const nextTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
-    document.documentElement.dataset.theme = nextTheme;
-    localStorage.setItem('socialclub-theme', nextTheme);
-    updateThemeButtons(nextTheme);
+    applyTheme(themes[(themes.indexOf(currentTheme) + 1) % themes.length]);
   });
 });
 
