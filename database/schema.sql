@@ -84,6 +84,15 @@ CREATE TABLE IF NOT EXISTS feedback (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS direct_messages (
+  id BIGSERIAL PRIMARY KEY,
+  sender_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  recipient_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  content VARCHAR(2000) NOT NULL,
+  is_read BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- updated_at is maintained by the database whenever a user changes.
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER AS $$
@@ -122,3 +131,12 @@ CREATE INDEX IF NOT EXISTS sessions_active_token_idx
 
 CREATE INDEX IF NOT EXISTS feedback_user_created_idx
   ON feedback (user_id, created_at DESC);
+
+CREATE INDEX IF NOT EXISTS direct_messages_conversation_idx
+  ON direct_messages (sender_id, recipient_id, created_at DESC);
+
+CREATE INDEX IF NOT EXISTS direct_messages_recipient_read_idx
+  ON direct_messages (recipient_id, is_read);
+
+CREATE INDEX IF NOT EXISTS direct_messages_recipient_created_idx
+  ON direct_messages (recipient_id, created_at DESC);

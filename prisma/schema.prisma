@@ -29,6 +29,8 @@ model User {
   feedback       Feedback[]
   followers      Follow[]  @relation("following")
   following      Follow[]  @relation("follower")
+  sentMessages     DirectMessage[] @relation("sent_messages")
+  receivedMessages DirectMessage[] @relation("received_messages")
 
   @@map("users")
 }
@@ -128,4 +130,21 @@ model Feedback {
 
   @@index([userId, createdAt(sort: Desc)], map: "feedback_user_created_idx")
   @@map("feedback")
+}
+
+model DirectMessage {
+  id          BigInt   @id @default(autoincrement())
+  senderId    BigInt   @map("sender_id")
+  recipientId BigInt   @map("recipient_id")
+  content     String   @db.VarChar(2000)
+  isRead      Boolean  @default(false) @map("is_read")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  sender      User     @relation("sent_messages", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient   User     @relation("received_messages", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@index([senderId, recipientId, createdAt(sort: Desc)], map: "direct_messages_conversation_idx")
+  @@index([recipientId, isRead], map: "direct_messages_recipient_read_idx")
+  @@index([recipientId, createdAt(sort: Desc)], map: "direct_messages_recipient_created_idx")
+  @@map("direct_messages")
 }
