@@ -1,12 +1,112 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>const storedTheme = localStorage.getItem('socialclub-theme'); document.documentElement.dataset.theme = ['sleek-dark', 'tech-saas', 'ocean', 'mocha-gold', 'forest-crimson'].includes(storedTheme) ? storedTheme : 'tech-saas';</script>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>const storedTheme = localStorage.getItem('socialclub-theme'); document.documentElement.dataset.theme = ['light', 'dark', 'ocean', 'forest-crimson', 'lemon-charcoal', 'mocha-gold', 'ice-aubergine', 'platinum-mocha', 'oatmeal-pine'].includes(storedTheme) ? storedTheme : 'light';</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/tokens.css"><link rel="stylesheet" href="assets/css/base.css"><link rel="stylesheet" href="assets/css/components.css"><link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/messages.css">
   <title>Messages · The Social Club</title>
 </head>
-<body><div class="app-shell"><!-- SHARED_NAV --><main class="app-main"><div class="app-main__content"><section class="page-panel"><h1 class="page-panel__title">Messages</h1><p class="empty-state">No messages yet.</p></section></div></main></div><script src="theme.js"></script></body>
+<body>
+  <div class="app-shell">
+    <!-- SHARED_NAV -->
+    <main class="app-main">
+      <div class="app-main__content app-main__content--messages">
+        <div class="dm-shell" id="dm-shell">
+          <!-- Left: Inbox Pane -->
+          <section class="dm-inbox" aria-label="Direct message conversations">
+            <header class="dm-inbox__header">
+              <h1 class="dm-inbox__title">Messages</h1>
+              <button class="dm-icon-btn" id="new-message-btn" type="button" aria-label="New message" title="New message">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </header>
+            <div class="dm-inbox__search">
+              <div class="dm-search-input-wrap">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
+                <input class="dm-search-input" id="search-conversations-input" type="search" placeholder="Search direct messages" aria-label="Search conversations">
+              </div>
+            </div>
+            <ul class="dm-inbox__list" id="conversations-list" role="list">
+              <!-- Rendered by messages.js -->
+            </ul>
+          </section>
+
+          <!-- Right: Thread Pane -->
+          <section class="dm-thread" id="dm-thread" aria-label="Conversation thread">
+            <!-- Placeholder when no thread is selected -->
+            <div class="dm-placeholder" id="dm-placeholder">
+              <div class="dm-placeholder__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <h2>Select a message</h2>
+              <p>Choose from your existing conversations, or start a new message.</p>
+              <button class="btn" id="placeholder-new-btn" type="button">New message</button>
+            </div>
+
+            <!-- Thread view when a thread is active -->
+            <div class="dm-thread-view" id="dm-thread-view" hidden>
+              <header class="dm-thread__header">
+                <div style="display: flex; align-items: center; min-width: 0; flex: 1;">
+                  <button class="dm-back-btn" id="dm-back-btn" type="button" aria-label="Back to conversations">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  </button>
+                  <a class="dm-thread__partner" id="partner-profile-link" href="#">
+                    <div class="dm-avatar dm-avatar--sm" id="thread-partner-avatar">?</div>
+                    <div class="dm-thread__partner-info">
+                      <span class="dm-thread__partner-name" id="thread-partner-name">User</span>
+                      <span class="dm-thread__partner-username" id="thread-partner-username">@username</span>
+                    </div>
+                  </a>
+                </div>
+              </header>
+
+              <div class="dm-thread__messages" id="messages-container" role="log" aria-live="polite">
+                <!-- Messages populated by JS -->
+              </div>
+
+              <footer class="dm-composer">
+                <form class="dm-composer__form" id="message-form">
+                  <textarea class="dm-composer__input" id="message-input" rows="1" placeholder="Write a message... (Enter to send, Shift+Enter for newline)" aria-label="Message text" required maxlength="2000"></textarea>
+                  <button class="dm-composer__send-btn" id="send-btn" type="submit" aria-label="Send message" disabled>
+                    <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                  </button>
+                </form>
+              </footer>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Message Modal -->
+  <div class="profile-modal" id="new-message-modal" hidden>
+    <div class="profile-modal__backdrop" id="modal-backdrop"></div>
+    <section class="profile-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="new-message-modal-title">
+      <div class="profile-modal__header">
+        <h2 id="new-message-modal-title">New message</h2>
+        <button class="profile-modal__close" id="modal-close-btn" type="button" aria-label="Close">×</button>
+      </div>
+      <div class="dm-modal-search">
+        <div class="dm-search-input-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
+          <input class="dm-search-input" id="modal-user-search" type="search" placeholder="Search people..." aria-label="Search people" autocomplete="off">
+        </div>
+      </div>
+      <p class="profile-modal__status" id="modal-search-status">Select someone to message</p>
+      <ul class="dm-modal-results" id="modal-users-list"></ul>
+    </section>
+  </div>
+
+  <script src="theme.js"></script>
+  <script src="messages.js"></script>
+</body>
 </html>

@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
 const adminRoutes = require('./routes/admin');
+const messageRoutes = require('./routes/messages');
 const { requirePageAuth, requirePageAdmin } = require('./middleware/auth');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { getR2Config } = require('./config/r2');
@@ -44,8 +45,7 @@ const legacyPageRoutes = {
 try {
   getR2Config();
 } catch (error) {
-  console.error(error.message);
-  process.exit(1);
+  console.warn(`[Warning] ${error.message} (Profile picture uploads will be disabled)`);
 }
 app.use(express.json());
 app.use(cookieParser());
@@ -53,6 +53,7 @@ app.use(requestLogger);
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/messages', messageRoutes);
 app.get(Object.keys(legacyPageRoutes), (req, res) => res.redirect(301, legacyPageRoutes[req.path]));
 app.get([...protectedPages], requirePageAuth, (req, res) => {
   const pageFile = pageRoutes[req.path];
