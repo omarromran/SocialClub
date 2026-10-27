@@ -245,7 +245,7 @@
     const toggle = aside.querySelector('[data-theme-toggle]');
     if (toggle) {
       toggle.addEventListener('click', () => {
-        const themes = ['light', 'dark', 'ocean', 'forest-crimson', 'lemon-charcoal', 'mocha-gold', 'ice-aubergine', 'platinum-mocha', 'oatmeal-pine'];
+        const themes = ['sleek-dark', 'tech-saas', 'ocean', 'mocha-gold', 'forest-crimson'];
         const currentTheme = document.documentElement.dataset.theme || 'light';
         const next = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
         document.documentElement.dataset.theme = next;

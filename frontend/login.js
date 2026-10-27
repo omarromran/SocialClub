@@ -21,5 +21,5 @@ form.addEventListener('submit', async (event) => {
         return;
     }
 
-    window.location.href = '/';
+    window.location.href = data.user?.is_admin ? '/admin' : '/';
 });

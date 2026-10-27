@@ -10,12 +10,14 @@
   <link rel="stylesheet" href="assets/css/tokens.css">
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
   <title>Admin · The Social Club</title>
 </head>
 <body>
   <div class="admin">
     <aside class="admin-side">
-      <a class="admin-logo" href="/admin">Club Admin</a>
+      <a class="app-brand admin-logo" href="/">The Social Club</a>
       <nav class="admin-nav">
         <button type="button" data-tab="users" class="is-on">Manage users</button>
         <button type="button" data-tab="content">Moderate content</button>
@@ -24,7 +26,6 @@
         <button type="button" data-tab="notice">System post</button>
       </nav>
       <div class="admin-side__foot">
-        <a href="/">View site</a>
         <button type="button" id="logout">Log out</button>
       </div>
     </aside>
@@ -117,6 +118,6 @@
   </div>
   <script src="theme.js"></script>
   <script src="validation.js"></script>
-  <script src="admin.js"></script>
+  <script src="admin.js?v=3"></script>
 </body>
 </html>

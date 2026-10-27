@@ -9,6 +9,7 @@ function publicUser(user) {
     display_name: user.displayName,
     username: user.username,
     email: user.email,
+    is_admin: Boolean(user.isAdmin || user.admin),
     bio: user.bio,
     profile_photo_url: user.profilePhotoUrl,
     is_private: user.isPrivate,

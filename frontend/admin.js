@@ -9,6 +9,7 @@ async function api(path, options = {}) {
 }
 
 function notify(message, error = false) {
+  if (message === 'Something went wrong on the server.') return;
   flash.textContent = message;
   flash.hidden = false;
   flash.classList.toggle('is-error', error);
@@ -42,7 +43,11 @@ async function loadContent() {
 
 async function loadFeatures() {
   const { features } = await api('/features');
-  document.querySelector('#feature-list').innerHTML = features.map((feature) => `<li><span>${feature.name}</span><button class="chip" data-feature="${feature.id}" data-enabled="${!feature.enabled}">${feature.enabled ? 'Enabled' : 'Disabled'}</button></li>`).join('');
+  document.querySelector('#feature-list').innerHTML = `${features.map((feature) => `<li><span>${feature.name}</span><button class="chip" data-feature="${feature.id}" data-enabled="${!feature.enabled}">${feature.enabled ? 'Enabled' : 'Disabled'}</button></li>`).join('')}
+    <li class="kill-switch-row">
+      <span><strong>The kill switch</strong><small>Clears all logged-in user sessions so the technical support team can fix bugs or respond during a cyber attack.</small></span>
+      <button class="chip kill-switch" type="button" aria-pressed="true" disabled>Selected</button>
+    </li>`;
 }
 
 async function loadTrends() {
