@@ -1,13 +1,13 @@
 const express = require('express');
 const controller = require('../controllers/adminController');
 const { requireAuth, requireAdmin } = require('../middleware/auth');
-const { validateSystemPost } = require('../middleware/validation');
+const { requireObjectBody, validateSystemPost } = require('../middleware/validation');
 
 const router = express.Router();
 router.use(requireAuth, requireAdmin);
 
 router.get('/users', controller.listUsers);
-router.patch('/users/:id/suspend', controller.setSuspended);
+router.patch('/users/:id/suspend', requireObjectBody, controller.setSuspended);
 router.delete('/users/:id', controller.deleteUser);
 router.post('/users/:id/sessions/revoke', controller.closeUserSessions);
 router.post('/sessions/revoke-recent-password-changes', controller.closeRecentPasswordChangeSessions);
@@ -19,7 +19,7 @@ router.delete('/comments/:id', controller.deleteComment);
 router.post('/system-post', validateSystemPost, controller.createSystemPost);
 
 router.get('/features', controller.listFeatures);
-router.patch('/features/:id', controller.updateFeature);
+router.patch('/features/:id', requireObjectBody, controller.updateFeature);
 router.get('/trends', controller.getTrends);
 
 module.exports = router;

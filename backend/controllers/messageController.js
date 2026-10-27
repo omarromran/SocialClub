@@ -2,7 +2,8 @@ const prisma = require('../config/prisma');
 
 function parseId(value) {
   try {
-    return BigInt(value);
+    const id = BigInt(value);
+    return id > 0n ? id : null;
   } catch {
     return null;
   }
@@ -173,6 +174,7 @@ async function sendMessage(req, res) {
 
 async function searchUsers(req, res) {
   const q = typeof req.query.q === 'string' ? req.query.q.trim().toLowerCase() : '';
+  if (q.length > 80) return res.status(400).json({ error: 'Search text must be 80 characters or fewer.' });
   const currentUserId = BigInt(req.user.id);
 
   let users = [];
@@ -221,6 +223,9 @@ async function getUserByUsername(req, res) {
   const username = typeof req.params.username === 'string' ? req.params.username.trim().toLowerCase() : '';
   if (!username) {
     return res.status(400).json({ error: 'Username is required.' });
+  }
+  if (!/^[a-z0-9_]{3,30}$/.test(username)) {
+    return res.status(400).json({ error: 'Invalid username.' });
   }
 
   const currentUserId = BigInt(req.user.id);

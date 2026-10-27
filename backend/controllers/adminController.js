@@ -9,7 +9,8 @@ const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
 
 function parseId(value) {
   try {
-    return BigInt(value);
+    const id = BigInt(value);
+    return id > 0n ? id : null;
   } catch {
     return null;
   }
@@ -74,7 +75,8 @@ async function listUsers(req, res) {
 
 async function setSuspended(req, res) {
   const userId = parseId(req.params.id);
-  const suspend = Boolean(req.body.suspended);
+  if (typeof req.body?.suspended !== 'boolean') return res.status(400).json({ error: 'Suspended must be true or false.' });
+  const suspend = req.body.suspended;
   if (!userId) return res.status(400).json({ error: 'Invalid user.' });
   if (userId === BigInt(req.user.id)) return res.status(400).json({ error: 'You cannot suspend your own account.' });
 
@@ -241,7 +243,8 @@ async function updateFeature(req, res) {
   const features = readFeatures();
   const feature = features.find((item) => item.id === req.params.id);
   if (!feature) return res.status(404).json({ error: 'Feature not found.' });
-  feature.enabled = Boolean(req.body.enabled);
+  if (typeof req.body?.enabled !== 'boolean') return res.status(400).json({ error: 'Enabled must be true or false.' });
+  feature.enabled = req.body.enabled;
   res.json({ feature, message: `${feature.name} ${feature.enabled ? 'enabled' : 'disabled'}.` });
 }
 

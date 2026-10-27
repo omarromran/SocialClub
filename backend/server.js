@@ -47,9 +47,10 @@ try {
 } catch (error) {
   console.warn(`[Warning] ${error.message} (Profile picture uploads will be disabled)`);
 }
-app.use(express.json());
+app.use(express.json({ limit: '1mb', strict: true }));
 app.use(cookieParser());
 app.use(requestLogger);
+app.get('/health', (req, res) => res.json({ status: 'ok', service: 'socialclub' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/admin', adminRoutes);
@@ -73,8 +74,15 @@ app.get(['/login', '/signup'], (req, res) => {
   res.type('html').send(page);
 });
 app.use(express.static(frontendPath));
+app.use('/api', (req, res) => res.status(404).json({ error: 'API route not found.' }));
+app.use((req, res) => res.status(404).type('text').send('Page not found.'));
 app.use(errorLogger);
 app.use((error, req, res, next) => {
+  if (res.headersSent) return next(error);
+  if (error.type === 'entity.too.large') return res.status(413).json({ error: 'Request body is too large.' });
+  if (error instanceof SyntaxError && error.status === 400 && error.body !== undefined) {
+    return res.status(400).json({ error: 'Request body contains invalid JSON.' });
+  }
   if (error instanceof require('multer').MulterError) {
     return res.status(error.code === 'LIMIT_FILE_SIZE' ? 413 : 400).json({ error: 'The profile-picture upload is invalid or too large.' });
   }

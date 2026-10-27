@@ -4,6 +4,7 @@ function requestLogger(req, res, next) {
   const requestId = randomUUID().slice(0, 8);
   const startedAt = Date.now();
   req.requestId = requestId;
+  res.setHeader('X-Request-Id', requestId);
 
   res.on('finish', () => {
     const duration = Date.now() - startedAt;
@@ -15,7 +16,7 @@ function requestLogger(req, res, next) {
 }
 
 function errorLogger(error, req, res, next) {
-  const statusCode = error.statusCode || (error instanceof require('multer').MulterError ? 400 : 500);
+  const statusCode = error.statusCode || error.status || (error instanceof require('multer').MulterError ? 400 : 500);
   const requestId = req.requestId || 'unknown';
   console.error(`[ERROR] ${new Date().toISOString()} [${requestId}] ${req.method} ${req.originalUrl} ${statusCode}`);
   console.error(error.stack || error.message || error);
