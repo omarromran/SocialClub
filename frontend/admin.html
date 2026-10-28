@@ -1,9 +1,8 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="tech-saas">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>const theme = localStorage.getItem('socialclub-theme'); document.documentElement.dataset.theme = ['sleek-dark', 'tech-saas', 'ocean', 'mocha-gold', 'forest-crimson'].includes(theme) ? theme : 'tech-saas';</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
@@ -18,106 +17,103 @@
   <div class="admin">
     <aside class="admin-side">
       <a class="app-brand admin-logo" href="/">The Social Club</a>
-      <nav class="admin-nav">
-        <button type="button" data-tab="users" class="is-on">Manage users</button>
-        <button type="button" data-tab="content">Moderate content</button>
-        <button type="button" data-tab="features">Manage features</button>
-        <button type="button" data-tab="trends">Analyze trends</button>
-        <button type="button" data-tab="notice">System post</button>
+      <nav class="admin-nav" aria-label="Admin sections">
+        <a href="#users">Manage users</a>
+        <a href="#content">Moderate content</a>
+        <a href="#features">Manage features</a>
+        <a href="#trends">Analyze trends</a>
+        <a href="#notice">System post</a>
       </nav>
-      <div class="admin-side__foot">
-        <button type="button" id="logout">Log out</button>
-      </div>
+      <div class="admin-side__foot"><a href="/login">Log out</a></div>
     </aside>
 
     <main class="admin-main">
       <header class="admin-top">
-        <div>
-          <p class="eyebrow">Dashboard</p>
-          <h1 id="panel-title">Manage users</h1>
-        </div>
-        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle theme">◐</button>
+        <div><p class="eyebrow">Dashboard</p><h1>Admin dashboard</h1></div>
+        <fieldset class="theme-picker" aria-label="Choose theme">
+          <legend>Theme</legend>
+          <label><input id="theme-tech" type="radio" name="theme" checked><span>Tech</span></label>
+          <label><input id="theme-ocean" type="radio" name="theme"><span>Ocean</span></label>
+          <label><input id="theme-forest" type="radio" name="theme"><span>Forest</span></label>
+          <label><input id="theme-mocha" type="radio" name="theme"><span>Mocha</span></label>
+          <label><input id="theme-sleek" type="radio" name="theme"><span>Dark</span></label>
+        </fieldset>
       </header>
-      <p class="admin-flash" id="flash" hidden></p>
 
-      <section class="panel" data-panel="users">
-        <p class="lede">Review accounts, suspend or delete them, and close active sessions.</p>
+      <section class="panel" id="users">
+        <h2>Manage users</h2>
+        <p class="lede">User data is intentionally not loaded in this static dashboard.</p>
         <div class="toolbar">
-          <input id="user-search" type="search" placeholder="Search name, username, email">
-          <button class="chip" type="button" id="refresh-users">Refresh</button>
-          <button class="chip chip--warn" type="button" id="kick-password">Close sessions after password change (30 days)</button>
+          <input type="search" placeholder="Search name, username, email" disabled>
+          <button class="chip" type="button" disabled>Refresh</button>
+          <button class="chip chip--warn" type="button" disabled>Close sessions after password change (30 days)</button>
         </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Member</th>
-                <th>Status</th>
-                <th>Sessions</th>
-                <th>Password changed</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="user-rows">
-              <tr><td colspan="5">Loading users...</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <dialog id="review-box" class="review">
-          <form method="dialog">
-            <h2>Account review</h2>
-            <dl id="review-body"></dl>
-            <button class="chip" value="close">Close</button>
-          </form>
-        </dialog>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Member</th><th>Status</th><th>Sessions</th><th>Password changed</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Alex Morgan</strong><br><small>@alexmorgan</small></td>
+              <td>Active</td>
+              <td>2</td>
+              <td>Oct 24, 2026</td>
+              <td><button class="chip" type="button" disabled>Suspend</button></td>
+            </tr>
+            <tr>
+              <td><strong>Jordan Lee</strong><br><small>@jordanlee</small></td>
+              <td>Active</td>
+              <td>1</td>
+              <td>Oct 21, 2026</td>
+              <td><button class="chip" type="button" disabled>Suspend</button></td>
+            </tr>
+            <tr>
+              <td><strong>Sam Rivera</strong><br><small>@samrivera</small></td>
+              <td>Suspended</td>
+              <td>0</td>
+              <td>Oct 18, 2026</td>
+              <td><button class="chip" type="button" disabled>Restore</button></td>
+            </tr>
+          </tbody>
+        </table></div>
       </section>
 
-      <section class="panel" data-panel="content" hidden>
+      <section class="panel" id="content">
+        <h2>Moderate content</h2>
         <p class="lede">Remove posts or comments that should not stay on the platform.</p>
         <div class="split">
-          <div>
-            <h2>Posts</h2>
-            <ul class="cards" id="post-list"></ul>
-          </div>
-          <div>
-            <h2>Comments</h2>
-            <ul class="cards" id="comment-list"></ul>
-          </div>
+          <div><h2>Posts</h2><ul class="cards"><li>No content loaded.</li></ul></div>
+          <div><h2>Comments</h2><ul class="cards"><li>No comments loaded.</li></ul></div>
         </div>
       </section>
 
-      <section class="panel" data-panel="features" hidden>
+      <section class="panel" id="features">
+        <h2>Manage features</h2>
         <p class="lede">Turn platform features on or off. Members pick this up on their next visit.</p>
-        <ul class="feature-list" id="feature-list"></ul>
+        <ul class="feature-list"><li>Feature data is not loaded.</li></ul>
       </section>
 
-      <section class="panel" data-panel="trends" hidden>
+      <section class="panel" id="trends">
+        <h2>Analyze trends</h2>
         <p class="lede">Quick numbers on engagement, plus the posts people are actually reacting to.</p>
-        <div class="stats" id="stat-row"></div>
-        <div class="toolbar">
-          <h2>Popular content</h2>
-          <button class="chip" type="button" id="download-report">Download report</button>
+        <div class="stats">
+          <div class="stat"><strong>—</strong><span>Users</span></div>
+          <div class="stat"><strong>—</strong><span>Posts</span></div>
+          <div class="stat"><strong>—</strong><span>Engagement</span></div>
         </div>
-        <ol class="rank" id="popular-list"></ol>
+        <div class="toolbar"><h2>Popular content</h2><button class="chip" type="button" disabled>Download report</button></div>
+        <ol class="rank"><li>Trend data is not loaded.</li></ol>
       </section>
 
-      <section class="panel" data-panel="notice" hidden>
+      <section class="panel" id="notice">
+        <h2>System post</h2>
         <p class="lede">If people cannot log in or post, publish a site-wide notice from here. It is saved as a system post.</p>
-        <form id="notice-form" class="notice-form">
-          <label class="field">Notice
-            <textarea name="caption" maxlength="500" required placeholder="We're fixing login issues. Hang tight — your posts are safe."></textarea>
-          </label>
-          <label class="field">Optional image
-            <input type="file" name="image" accept="image/*">
-          </label>
-          <button class="btn" type="submit">Publish notice</button>
+        <form class="notice-form" action="#notice" method="get">
+          <label class="field">Notice<textarea name="caption" maxlength="500" required placeholder="We're fixing login issues. Hang tight — your posts are safe."></textarea></label>
+          <label class="field">Optional image<input type="file" name="image" accept="image/*"></label>
+          <button class="btn" type="submit" disabled>Publish notice</button>
         </form>
-        <ul class="cards" id="system-posts"></ul>
+        <ul class="cards"><li>No system posts loaded.</li></ul>
       </section>
     </main>
   </div>
-  <script src="theme.js"></script>
-  <script src="validation.js"></script>
-  <script src="admin.js?v=3"></script>
 </body>
 </html>

@@ -2,12 +2,32 @@
 .admin-side { display: flex; flex-direction: column; gap: var(--space-8); padding: 0 0 var(--space-6); background: var(--bg); border-inline-end: var(--border-width) solid var(--border); }
 .admin-logo { width: 100%; color: var(--text); }
 .admin-nav { display: grid; gap: var(--space-2); }
-.admin-nav button, .admin-side__foot button, .admin-side__foot a { padding: var(--space-3); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); text-align: start; text-decoration: none; cursor: pointer; }
-.admin-nav button:hover, .admin-side__foot button:hover, .admin-side__foot a:hover, .admin-nav button.is-on { background: var(--bg-subtle); color: var(--text); }
+.admin-nav a, .admin-side__foot a { padding: var(--space-3); border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-secondary); text-align: start; text-decoration: none; cursor: pointer; }
+.admin-nav a:hover, .admin-side__foot a:hover, .admin-nav a.is-on { background: var(--bg-subtle); color: var(--text); }
 .admin-nav, .admin-side__foot { margin-inline: var(--space-6); }
 .admin-side__foot { display: grid; gap: var(--space-2); margin-top: auto; }
 .admin-main { width: min(100%, 1280px); padding: var(--space-8); }
 .admin-top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-6); }
+.theme-picker { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0; padding: 0; border: 0; }
+.theme-picker legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.theme-picker label { cursor: pointer; }
+.theme-picker input { position: absolute; opacity: 0; pointer-events: none; }
+.theme-picker span { display: block; padding: var(--space-2) var(--space-3); border: var(--border-width) solid var(--border); border-radius: var(--radius-pill); color: var(--text-secondary); font-size: var(--text-sm); }
+.theme-picker label:hover span, .theme-picker input:focus-visible + span, .theme-picker input:checked + span { border-color: var(--accent); background: var(--accent-subtle); color: var(--text); }
+
+body:has(#theme-ocean:checked) { color-scheme: light; --bg: #EAF6F8; --surface: #F8FCFC; --on-bg: #103744; --text: #103744; --text-secondary: #456B75; --bg-subtle: #D9EEF1; --border: #C6E0E4; --border-strong: #9FC7CF; --accent: #087F9B; --accent-subtle: rgba(8, 127, 155, 0.13); --bg-elevated: var(--surface); }
+body:has(#theme-forest:checked) { color-scheme: dark; --bg: #16181B; --surface: #1D3B2E; --on-bg: #F2F2EE; --text: #F2F2EE; --text-secondary: #C5D1C8; --bg-subtle: #244937; --border: #456653; --border-strong: #6A8976; --accent: #EF4458; --accent-subtle: rgba(239,68,88,.16); --bg-elevated: var(--surface); }
+body:has(#theme-mocha:checked) { color-scheme: dark; --bg: #251B16; --surface: #3B2C24; --on-bg: #EBD9A8; --text: #EBD9A8; --text-secondary: #D5C18F; --bg-subtle: #46352B; --border: #806D46; --border-strong: #AA955E; --accent: #E07B1F; --accent-subtle: rgba(224,123,31,.18); --bg-elevated: var(--surface); }
+body:has(#theme-sleek:checked) { color-scheme: dark; --bg: #0B0F19; --surface: #1F2937; --on-bg: #F8FAFC; --text: #F8FAFC; --text-secondary: #CBD5E1; --bg-subtle: #273449; --border: #374151; --border-strong: #4B5563; --accent: #6366F1; --accent-subtle: rgba(99,102,241,.18); --bg-elevated: var(--surface); }
+.panel { display: none; }
+.panel:target { display: block; }
+.admin-main:not(:has(.panel:target)) #users { display: block; }
+body:has(#users:target) .admin-nav a[href="#users"],
+body:has(#content:target) .admin-nav a[href="#content"],
+body:has(#features:target) .admin-nav a[href="#features"],
+body:has(#trends:target) .admin-nav a[href="#trends"],
+body:has(#notice:target) .admin-nav a[href="#notice"] { background: var(--bg-subtle); color: var(--text); }
+body:not(:has(.panel:target)) .admin-nav a[href="#users"] { background: var(--bg-subtle); color: var(--text); }
 .admin-flash { margin: 0 0 var(--space-5); padding: var(--space-3) var(--space-4); border: var(--border-width) solid var(--border); border-radius: var(--radius-sm); background: var(--bg-subtle); }
 .admin-flash.is-error { border-color: var(--semantic-error); color: var(--semantic-error); }
 .panel { padding: var(--space-6); border: var(--border-width) solid var(--border); border-radius: var(--radius-lg); background: var(--bg-elevated); box-shadow: var(--shadow-sm); }
